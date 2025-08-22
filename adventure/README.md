@@ -1,61 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Adventure Blog
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **Project Summary for Recruiters**  
+> Adventure Blog is a full-stack web app built with **Laravel 12**, **Inertia.js**, and **Vue 3 with TypeScript**.  
+> It demonstrates my ability to design, scaffold, and deploy a modern blogging platform with a Dockerized development environment,  
+> TypeScript-enabled frontend, file uploads (local + S3), authentication, and clean code organization.  
+> This project highlights practical experience with PHP/Laravel, Vue/TS, Vite, and Docker.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-35495E?logo=vue.js&logoColor=4FC08D)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white)
+![Amazon%20S3](https://img.shields.io/badge/Amazon%20S3-569A31?logo=amazons3&logoColor=white)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Laravel 12 backend**
+  - Dockerized local development using [Laravel Sail](https://laravel.com/docs/sail)
+  - MySQL, Redis, Meilisearch, Mailpit, and Selenium included in the dev stack
+  - Authentication, user profiles, and dashboard (via Breeze)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Vue 3 + TypeScript frontend**
+  - Inertia.js bridges Laravel and Vue for a smooth single-page app experience
+  - TypeScript enabled (`<script setup lang="ts">`) with full type-checking via Volar
+  - Vite-powered asset pipeline for development and production
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Blog Posts CRUD**
+  - `Post` model with fields: `title`, `slug`, `excerpt`, `body`, `cover_path`, `published_at`
+  - Controller actions: index, create, store, show
+  - Image upload (cover) with disk abstraction:
+    - Local storage in development
+    - Amazon S3 in production (`FILESYSTEM_DISK=s3`)
 
-## Laravel Sponsors
+- **Frontend pages**
+  - `Posts/Index` – paginated post list with cover previews
+  - `Posts/Create` – form for creating posts, with file upload and publish toggle
+  - `Posts/Show` – detail view with cover image and publish date formatting
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Developer experience**
+  - Configured for WSL2 + Docker Desktop
+  - Port conflicts resolved (runs at `http://localhost/`)
+  - VS Code optimized with Volar Take Over Mode + TypeScript SDK from project
+  - Hot reloading with `sail npm run dev`
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Getting Started
 
-## Contributing
+### Prerequisites
+- Docker Desktop with WSL2 integration enabled  
+- VS Code (recommended) with [Vue – Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension installed
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Local Development
+```bash
+# clone repo
+git clone https://github.com/yourusername/adventure-blog.git
+cd adventure-blog
 
-## Code of Conduct
+# start containers
+./vendor/bin/sail up -d
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# run migrations
+./vendor/bin/sail php artisan migrate
 
-## Security Vulnerabilities
+# run Vite dev server
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Visit: [http://localhost](http://localhost)
+
+---
+
+### Storage
+- Local dev: files are saved in `storage/app/public/covers` and served via `public/storage`
+- Production: configure `.env` with your S3 bucket details:
+  ```dotenv
+  FILESYSTEM_DISK=s3
+  AWS_ACCESS_KEY_ID=xxx
+  AWS_SECRET_ACCESS_KEY=xxx
+  AWS_DEFAULT_REGION=us-east-1
+  AWS_BUCKET=your-bucket-name
+  ```
+
+---
+
+## Roadmap
+
+- Edit/update and delete posts  
+- Comments system  
+- Rich text editor for post body  
+- Deployment config (Nginx + PHP-FPM + queue worker)  
+- GitHub Actions for CI/CD  
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+Copyright (c) 2025 Jessica Brady
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+---
+
+Attribution Notice:
+Any redistribution or derivative works must retain the above copyright
+notice, this attribution, and a link back to the original repository.
+
