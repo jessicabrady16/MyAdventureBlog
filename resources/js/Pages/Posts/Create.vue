@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
-const csrf =
-  (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement | null)?.content ?? ''
+const props = defineProps<{ csrf_token: string }>()  // <- get it from server
 
 type FormState = {
   title: string
@@ -31,7 +30,7 @@ function onFile(e: Event) {
     <h1 class="text-2xl font-bold">New Post</h1>
 
     <form method="post" action="/posts" enctype="multipart/form-data" class="space-y-4">
-      <input type="hidden" name="_token" :value="csrf" />
+      <input type="hidden" name="_token" :value="props.csrf_token" />
 
       <div>
         <label class="block font-medium">Title</label>

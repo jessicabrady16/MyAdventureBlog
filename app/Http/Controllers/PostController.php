@@ -27,7 +27,9 @@ class PostController extends Controller
 
     public function create()
     {
-        return Inertia::render('Posts/Create');
+        return Inertia::render('Posts/Create', [
+            'csrf_token' => csrf_token(),   
+        ]);
     }
 
     public function store(Request $request)
